@@ -35,7 +35,7 @@ wp --allow-root wc shop_order delete --force=1 --user=1 $number 2>> /tmp/to_dele
 
 done
 
-if [ $b -lt 100 ] ; then
+if [ $b -lt 99 ] ; then
 echo "All done, went through $b iterations." >> /tmp/to_delete.log
 break
 fi
