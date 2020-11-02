@@ -18,25 +18,28 @@ rm -f /tmp/to_delete.txt 2> /dev/null
 
 (wp wc shop_order list --user=1 --format=ids --status='on-hold' --allow-root | tr ' ' '\n' ; echo) > /tmp/to_delete.txt 2>> /tmp/to_delete.log
 
-b=0
+b=1
 
 lines=$(cat /tmp/to_delete.txt | wc -l)
 
 while [ $b -le $lines ] ; do
 
-b=`expr $b + 1`
-
 number=$(cat /tmp/to_delete.txt | head -n $b | tail -n 1)
+
+if [ $(echo $number | wc -c) == "1" ] ; then
+break
+fi
 
 echo "Deleting on iteration $a order $b (ID: $number) " >> /tmp/to_delete.log
 
 wp --allow-root wc shop_order delete --force=1 --user=1 $number 2>> /tmp/to_delete.log >> /tmp/to_delete.log
 
+b=`expr $b + 1`
 
 done
 
 if [ $b -lt 99 ] ; then
-echo "All done, went through $b iterations." >> /tmp/to_delete.log
+echo "All done, went through $(($b-1)) iterations." >> /tmp/to_delete.log
 break
 fi
 
