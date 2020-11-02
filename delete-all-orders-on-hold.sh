@@ -16,7 +16,7 @@ while [ 1 ] ; do
 
 rm -f /tmp/to_delete.txt 2> /dev/null
 
-wp wc shop_order list --user=1 --format=ids --status='on-hold' --allow-root | tr ' ' '\n' > /tmp/to_delete.txt
+(wp wc shop_order list --user=1 --format=ids --status='on-hold' --allow-root | tr ' ' '\n' ; echo) > /tmp/to_delete.txt 2>> /tmp/to_delete.log
 
 b=0
 
